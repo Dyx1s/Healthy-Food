@@ -59,7 +59,7 @@ window.addEventListener('DOMContentLoaded', () => {
             'seconds': seconds
         };
     }
-
+    //Добавляем 0 перед цифрами для красопеты
     function getZero(num) {
         if (num >= 0 && num < 10) {
             return `0${num}`;
@@ -75,7 +75,7 @@ window.addEventListener('DOMContentLoaded', () => {
               minutes = timer.querySelector('#minutes'),
               seconds = timer.querySelector('#seconds'),
               timeInterval = setInterval(updateClock, 1000);
-        
+
         updateClock()
 
         function updateClock() {
