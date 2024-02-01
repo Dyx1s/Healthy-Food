@@ -46,19 +46,29 @@ window.addEventListener('DOMContentLoaded', () => {
     const deadline = '2024-02-09';
 
     function getTimeRemaning(endtime) {
-        const t = Date.parse(endtime) - Date.parse(new Date()),
-              days = Math.floor( (t / (1000*60*60*24)) ),
-              hours = Math.floor( (t / (1000*60*60) % 24) ),
-              minutes = Math.floor( (t / 1000/60) % 60 ),
-              seconds = Math.floor( (t / 1000) % 60 );
-        return {
+        let days, hours, minutes, seconds;
+        const t = Date.parse(endtime) - Date.parse(new Date());
+        //Прописываем условие, если deadline уже прошел
+        if (t <= 0) {
+            days = 0;
+            hours = 0;
+            minutes = 0;
+            seconds = 0;
+        } else {
+            days = Math.floor( (t / (1000*60*60*24)) ),
+            hours = Math.floor( (t / (1000*60*60) % 24) ),
+            minutes = Math.floor( (t / 1000/60) % 60 ),
+            seconds = Math.floor( (t / 1000) % 60 );
+        }
+
+        return { //возвращаем элементы из ф-ции наружу
             'total': t,
             'days': days,
             'hours': hours,
             'minutes': minutes,
             'seconds': seconds
         };
-    }
+    };
     //Добавляем 0 перед цифрами для красопеты
     function getZero(num) {
         if (num >= 0 && num < 10) {
@@ -67,7 +77,7 @@ window.addEventListener('DOMContentLoaded', () => {
             return num;
         }
     }
-
+    //Сам таймер
     function setClock(selector, endtime) {
         const timer = document.querySelector(selector),
               days = timer.querySelector("#days"),
@@ -76,8 +86,8 @@ window.addEventListener('DOMContentLoaded', () => {
               seconds = timer.querySelector('#seconds'),
               timeInterval = setInterval(updateClock, 1000);
 
-        updateClock()
-
+        updateClock();
+        //Обновление таймера
         function updateClock() {
             const t = getTimeRemaning(endtime);
 
@@ -89,9 +99,8 @@ window.addEventListener('DOMContentLoaded', () => {
             if (t.total <= 0) {
                 clearInterval(timeInterval);
             }
-        }
+        };
     }
 
     setClock('.timer', deadline);
-    
 })
