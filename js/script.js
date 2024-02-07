@@ -110,19 +110,24 @@ window.addEventListener('DOMContentLoaded', () => {
           modal = document.querySelector('.modal'),
           modalCloseBtn = document.querySelector('[data-close]');
 
-    modalTrigger.forEach(btn => {
-        btn.addEventListener('click', () => {
-            modal.classList.add('show');
-            modal.classList.remove('hide');
-            document.body.style.overflow = 'hidden'; //откл скролл
-        });
-    });
+    //открытие модалки
+    function openModal() {
+        modal.classList.add('show');
+        modal.classList.remove('hide');
+        document.body.style.overflow = 'hidden'; //откл скролл
+        clearInterval(modalTimerId); //Если юзер открыл уже модалку, то modalTimerId вырубается
+    };
 
+    // закрытиe модалки
     function closeModal() {
         modal.classList.add('hide');
         modal.classList.remove('show');
         document.body.style.overflow = '';
     }
+
+    modalTrigger.forEach(btn => {
+        btn.addEventListener('click', openModal);
+    });
 
     modalCloseBtn.addEventListener('click', closeModal);
 
@@ -137,5 +142,9 @@ window.addEventListener('DOMContentLoaded', () => {
         if (e.code === "Escape" && modal.classList.contains('show')) {
             closeModal();
         }
-    })
+    });
+
+    const modalTimerId = setTimeout(openModal, 5000);
+
+
 });
