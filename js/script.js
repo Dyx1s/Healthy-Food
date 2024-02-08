@@ -145,6 +145,17 @@ window.addEventListener('DOMContentLoaded', () => {
     });
 
     const modalTimerId = setTimeout(openModal, 5000);
+    
+    //Появление модалки при прокручивании до конца страницы
+    function showModalByScroll() {
+        //складываем высоту прокрученного контента и высоту контента на экране и сравниваем с полной высотой документа (-1px ставим, чтоб модалка открылась)
+        if(window.scrollY + document.documentElement.clientHeight >= document.documentElement.scrollHeight -1) {
+            openModal();
+            window.removeEventListener('scroll', showModalByScroll);//чтоб сработало 1 раз
+        }
+    } 
+    //Если пользователь долистал, то мы открываем модалку
+    window.addEventListener('scroll', showModalByScroll);
 
 
 });
