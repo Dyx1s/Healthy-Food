@@ -144,7 +144,7 @@ window.addEventListener('DOMContentLoaded', () => {
         }
     });
 
-    const modalTimerId = setTimeout(openModal, 5000);
+    //const modalTimerId = setTimeout(openModal, 5000);
     
     //Появление модалки при прокручивании до конца страницы
     function showModalByScroll() {
@@ -157,5 +157,25 @@ window.addEventListener('DOMContentLoaded', () => {
     //Если пользователь долистал, то мы открываем модалку
     window.addEventListener('scroll', showModalByScroll);
 
+    //Создаем классы для menu__item
+    class MenuCard {
+        constructor(src, alt, title, descr, price) {
+            this.src = src;
+            this.alt = alt;
+            this.title = title;
+            this.descr = descr;
+            this.price = price;
+            this.tranfer = 90;
+            this.changeToRUB();
+        }
+
+        changeToRUB() {
+            this.price = this.price * this.tranfer;
+        }
+
+        render() {
+            
+        }
+    }
 
 });
